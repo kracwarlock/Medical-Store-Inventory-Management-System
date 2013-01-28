@@ -9,15 +9,15 @@ Instructions To Setup The Project
 
 2.	Have a MySQL server ready and run the following queries as root:
 	
-	    CREATE USER '$dbuser'@'$dbhost' IDENTIFIED BY '$dbpass';<br>
-	    CREATE DATABASE $db;<br>
-	    GRANT ALL ON $db.* TO '$dbuser'@'$dbhost';<br>
-	    USE $db;<br>
-	    CREATE TABLE CREATE TABLE $dbtable<br>
+	    CREATE USER '$dbuser'@'$dbhost' IDENTIFIED BY '$dbpass';
+	    CREATE DATABASE $db;
+	    GRANT ALL ON $db.* TO '$dbuser'@'$dbhost';
+	    USE $db;
+	    CREATE TABLE CREATE TABLE $dbtable
 	    (
-		    username	varchar(15),
-		    password	varchar(32),
-		    role	varchar(15)
+		    username    varchar(15),
+		    password    varchar(32),
+		    role        varchar(15)
 	    );
 	
 	Replace the $ variables with the same ones you have used in config.php
