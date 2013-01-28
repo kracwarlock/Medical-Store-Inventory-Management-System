@@ -1,0 +1,87 @@
+body
+{
+	margin:0;
+	padding:0;
+	font-family: 'Graduate', Arial, cursive;
+	font-weight:400;
+}
+form
+{
+	border: 1px solid #ddd; 
+	padding: 30px 40px 20px 40px; 
+	margin: 40px 0 0 0;
+	width: 960px;
+	background: #fff;
+				
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px; 		
+		
+	background: -webkit-gradient(linear, 0% 0%, 0% 40%, from(#EEE), to(#FFFFFF)); 
+	background: -moz-linear-gradient(0% 40% 90deg,#FFF, #EEE); 
+		
+	-webkit-box-shadow:0px 0 50px #ccc;
+	-moz-box-shadow:0px 0 50px #ccc; 
+	box-shadow:0px 0 50px #ccc;
+	
+	margin-left:auto;
+	margin-right:auto;
+}
+input
+{ 		
+	padding: 8px; 
+	margin: 4px 0 20px 0; 
+	background: #fff; 
+	width: 220px; 
+	font-size: 14px; 
+	color: #555; 
+	border: 1px #ddd solid;
+
+	-webkit-box-shadow: 0px 0px 4px #aaa;
+	-moz-box-shadow: 0px 0px 4px #aaa; 
+	box-shadow: 0px 0px 4px #aaa;
+		
+	-webkit-transition: background 0.3s linear;							
+}
+input:hover
+{ 
+	background: #eee;
+}
+input.submit
+{ 	
+	width: 150px; 
+	color: #eee; 
+	text-transform: uppercase; 
+	margin-top: 10px;
+	margin-left:100px;
+	background-color: #18a5cc;
+	border: none;
+		
+	-webkit-transition: -webkit-box-shadow 0.3s linear;
+
+	-moz-border-radius: 4px; 
+	-webkit-border-radius: 4px;
+	border-radius: 4px; 
+
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#18a5cc), to(#0a85a8)); 
+	background: -moz-linear-gradient(25% 75% 90deg,#0a85a8, #18a5cc);		
+} 
+	
+input.submit:hover
+{ 		
+	-webkit-box-shadow: 0px 0px 20px #555;
+	-moz-box-shadow: 0px 0px 20px #aaa; 
+	box-shadow: 0px 0px 20px #555;	
+	cursor:  pointer; 
+}
+hr
+{
+	border: 0;
+	height: 1px;
+	margin-top:-10px;
+	margin-bottom:30px;
+	background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+	background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+	background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+	background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); 
+}

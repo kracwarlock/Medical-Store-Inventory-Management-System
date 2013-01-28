@@ -1,0 +1,7 @@
+<?php
+	$dbhost = 'TYPE HOST SERVER ADDRESS/LOCALHOST HERE';
+	$db = 'TYPE NAME OF THE DATABSE HERE';
+	$dbtable = 'TYPE TABLE NAME HERE';
+	$dbuser = 'TYPE DB USERNAME HERE';
+	$dbpass = 'TYPE DB PASSWORD HERE';
+?>
