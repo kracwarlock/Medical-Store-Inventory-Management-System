@@ -1,0 +1,37 @@
+\documentclass[a4papaer]{article}
+\title{{\bf Medical Store Management System}\\Phase-1}
+\author{Shikhar Sharma\\10682\\shikhars@iitk.ac.in\\\\CS315 Course Project\\IIT Kanpur}
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\newpage
+\thispagestyle{empty}
+\section*{Abstract}
+Modern businesses across the globe are using technology to improve efficiency and increase sales. In India, too, modern retail stores have started using software for retail sale and inventory management but we find that the Medicine sector has not been able to keep pace with technology. We see that most medical stores/hospital pharmacies in India are still not using any computerization in their functioning.\\
+
+This project aims to address that need. The project will mainly be an inventory management system for medical stores which would keep record of medicine stock and handle changes due to supply or sale.
+
+\section*{Data Description}
+The data would be collected from medicine covers and websites of pharmaceutical companies. For the demonstration there would be some dummy data for supplier names and some medicines. The data used in the project would comprise of medicine name, compound, chemical amount, quantity, expiry date, cost price, selling price, company. Related to supplier there will be supplier company's name, address, email, telephone. There would also be customer data for the medicines. Additional data fields would also be added.
+
+\section*{Functionality Description}
+There would be 3 kind of roles on the database:
+	\begin{enumerate}
+		\item Administrator
+		\item Doctor / Owner
+		\item Receptionist
+	\end{enumerate}
+The administrator will have complete privileges on the whole database. The doctor/owner will be allowed to both carry out transactions as well as modify past transactions. The receptionist will be allowed to carry out transactions on the database but won't be allowed to modify past transactions.\\
+
+All the actions will be logged so that they can be reverted by the admin if necessary. Also, if time permits, a feature can be added such that the administrator can use this log file to repopulate the database in case the database is deleted from the hard drive.
+\begin{description}
+	\item[Role functionality: {\bf Administrator}]\hfill\\
+		The administrator will be allowed to access the back-end of the database which will be in MySQL. He would also have web access to a front-end which would let him view transactions which have taken place. The front-end would also make it possible for him to modify individual entries manually.
+	\item[Role functionality: {\bf Doctor / Owner}]\hfill\\
+		The doctor/owner will be allowed only his own front-end which would permit him to do everything that a receptionist is allowed to do. Additionally, he will be able to view past transactions and will be allowed to modify the values or nullify those transactions.
+	\item[Role functionality: {\bf Receptionist}]\hfill\\
+		The receptionist will be allowed to insert new transactions for medicines. He would have a severely limited role and won't have privileges to modify any transaction except the current one.
+\end{description}
+Depending on what functionality the Medical Store / Hospital Pharmacy would like to grant the users they can create user accounts of the required specifications and can hand out login credentials to the users. For example, a doctor would not necessarily be given the Doctor / Owner role if the medical store does not want him to be able to modify transactions.
+\thispagestyle{empty}
+\end{document}
