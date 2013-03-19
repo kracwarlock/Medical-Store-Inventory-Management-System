@@ -1,0 +1,161 @@
+\documentclass[a4papaer]{article}
+\usepackage[pdftex]{graphicx} 
+\usepackage{enumitem}
+\setdescription{leftmargin=\parindent,labelindent=20mm}
+
+\title{{\bf Medical Store Management System}\\Phase-3}
+\author{Shikhar Sharma\\10682\\shikhars@iitk.ac.in\\\\CS315 Course Project\\IIT Kanpur}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+\section{EER/ER diagram of Phase-2 converted into tables}
+	\begin{description}
+		\item[medicine] (\underline{name}, \underline{buy\_timestamp}, \underline{expiry\_date}, \underline{chem\_amount}, qty, \underline{cp}, sp, pharmaco)
+		\item[medicine\_compound] (\underline{name}, \underline{buy\_timestamp}, \underline{expiry\_date}, \underline{chem\_amount}, \underline{cp}, \underline{compound})
+		\item[transaction] (\underline{id}, txn\_timestamp, buy\_sell, notes)
+		\item[person] (\underline{pid}, name, address)
+		\item[person\_email] (pid, \underline{email})
+		\item[person\_tel\_no] (pid, \underline{tel\_no})
+		\item[supplier\_pharmaco] (\underline{pid}, \underline{pharmaco})
+		\item[employee] (\underline{pid}, salary, duty\_timings)
+		\item[txn\_on] (\underline{name}, \underline{buy\_timestamp}, \underline{chem\_amount}, \underline{expiry\_date}, \underline{cp}, \underline{id}, qty\_buy\_sell)
+		\item[txn\_person] (\underline{id}, \underline{pid\_person}, \underline{pid\_employee})
+	\end{description}
+
+\section{Different kinds of integrity constraints satisfied by the DB}
+	\subsection{Entity Integrity}
+		\begin{itemize}
+			\item None of the primary keys has a null value.
+			\item The primary keys have been underlined in the section above this one.
+		\end{itemize}
+	\subsection{Referential Integrity}
+		\begin{itemize}
+			\item 'name', 'chem\_amount', 'cp' in the relation {\bf medicine\_compound} are foreign keys referencing the same fields in the relation {\bf medicine}.
+			\item 'pid' in the relation {\bf person\_email} is a foreign key referencing the same field in the relation {\bf person}.
+			\item 'pid' in the relation {\bf person\_tel\_no} is a foreign key referencing the same field in the relation {\bf person}.
+			\item 'pid' in the relation {\bf supplier\_pharmacol} is a foreign key referencing the same field in the relation {\bf person}.
+		\end{itemize}
+	\subsection{Domain Integrity}
+		\begin{itemize}
+			\item They will be mentioned in the CREATE statements in Section 4.
+		\end{itemize}
+	\subsection{User Defined Integrity}
+		\begin{itemize}
+			\item medicine $\geq$ 0
+			\item cp $\geq$ 0
+			\item sp $\geq$ 0
+			\item qty\_buy\_sell $>$ 0
+			\item salary $\geq$ 0
+			\item buy\_sell IN ('b','s')
+		\end{itemize}
+
+\section{Tables after normalization}
+	\begin{description}
+		\item[medicine] (\underline{name}, \underline{buy\_timestamp}, \underline{expiry\_date}, \underline{chem\_amount}, qty, \underline{cp}, sp)
+		\item[name\_pharma] (\underline{name}, \underline{pharmaco})
+		\item[name\_compound] (\underline{name}, \underline{compound})
+		\item[transaction] (\underline{id}, txn\_timestamp, buy\_sell, notes)
+		\item[person] (\underline{pid}, name, address)
+		\item[person\_email] (pid, \underline{email})
+		\item[person\_tel\_no] (pid, \underline{tel\_no})
+		\item[supplier\_pharmaco] (\underline{pid}, \underline{pharmaco})
+		\item[employee] (\underline{pid}, salary, duty\_timings)
+		\item[txn\_on] (\underline{name}, \underline{buy\_timestamp}, \underline{chem\_amount}, \underline{expiry\_date}, \underline{cp}, \underline{id}, qty\_buy\_sell)
+		\item[txn\_person] (\underline{id}, \underline{pid\_person}, \underline{pid\_employee})
+	\end{description}
+
+	\subsection{Justification}
+		The functional dependencies are :\\
+			\begin{enumerate}
+				\item name $\rightarrow$ pharmaco
+				\item name $\rightarrow$ compound
+				\item name buy\_timestamp chem\_amount cp expiry\_date $\rightarrow$ sp Qty pharmaco
+				\item id $\rightarrow$ txn\_timestamp buy\_sell notes
+				\item pid $\rightarrow$ name address
+				\item email $\rightarrow$ pid
+				\item tel\_no $\rightarrow$ pid
+				\item pid $\rightarrow$ salary duty\_timings
+				\item id name buy\_timestamp chem\_amount cp expiry\_date $\rightarrow$ qty\_buy\_sell
+			\end{enumerate}
+		The tables {\bf transaction}, {\bf person}, {\bf person\_email}, {\bf person\_tel\_no}, {\bf supplier\_pharmaco}, {\bf employee}, {\bf txn\_on}, and {\bf txn\_person} will stay unchanged. \\
+		
+		Due to FD\#2, the table {\bf medicine\_compound} will be split into {\bf name\_compound}(\underline{name}, \underline{compound}) and {\bf name\_details}(\underline{name}, \underline{buy\_timestamp}, \underline{expiry\_date}, \underline{chem\_amount}, \underline{cp}) but the table {\bf name\_details} is already contained in the table {\bf medicine} and is therefore not needed.\\
+
+		Due to FD\#1, the table {\bf medicine} will be split into {\bf medicine}(\underline{name}, \underline{buy\_timestamp}, \underline{expiry\_date}, \underline{chem\_amount}, quantity, \underline{cp}, sp) and {\bf name\_pharma}(\underline{name}, \underline{pharma})
+			
+
+\section{Create statements for the DB design (including the necessary integrity constraints)}
+	\begin{itemize}
+		\item CREATE TABLE medicine (\\
+			\hspace*{4mm}name varchar(60) NOT NULL,\\
+			\hspace*{4mm}buy\_timestamp timestamp NOT NULL,\\
+			\hspace*{4mm}expiry\_date date NOT NULL,\\
+			\hspace*{4mm}chem\_amount varchar(10) NOT NULL,\\
+			\hspace*{4mm}qty int NOT NULL,\\
+			\hspace*{4mm}cp int NOT NULL,\\
+			\hspace*{4mm}sp int NOT NULL,\\
+			\hspace*{4mm}PRIMARY KEY(name, buy\_timestamp, expiry\_date, chem\_amount, cp)\\
+		);
+		\item CREATE TABLE name\_pharma (\\
+			\hspace*{4mm}name varchar(60) references medicine(name),\\
+			\hspace*{4mm}pharmaco varchar(50) NOT NULL,\\
+			\hspace*{4mm}PRIMARY KEY(name, pharmaco)\\
+		);
+		\item CREATE TABLE name\_compound (\\
+			\hspace*{4mm}name varchar(60) references medicine(name),\\
+			\hspace*{4mm}compound varchar(50) NOT NULL,\\
+			\hspace*{4mm}PRIMARY KEY(name, compound)\\
+		);
+		\item CREATE TABLE transaction (\\
+			\hspace*{4mm}id int PRIMARY KEY,\\
+			\hspace*{4mm}txn\_timestamp timestamp NOT NULL,\\
+			\hspace*{4mm}buy\_sell char(1) NOT NULL,\\
+			\hspace*{4mm}notes text\\
+		);
+		\item CREATE TABLE person (\\
+			\hspace*{4mm}pid int PRIMARY KEY NOT NULL AUTO\_INCREMENT,\\
+			\hspace*{4mm}name varchar(60) NOT NULL,\\
+			\hspace*{4mm}address text NOT NULL\\
+		);
+		\item CREATE TABLE person\_email (\\
+			\hspace*{4mm}pid int references person(pid),\\
+			\hspace*{4mm}email varchar(45) PRIMARY KEY NOT NULL\\
+		);
+		\item CREATE TABLE person\_tel\_no (\\
+			\hspace*{4mm}pid int references person(pid),\\
+			\hspace*{4mm}tel\_no int PRIMARY KEY NOT NULL\\
+		);
+		\item CREATE TABLE supplier\_pharmaco (\\
+			\hspace*{4mm}pid int references person(pid),\\
+			\hspace*{4mm}pharmaco varchar(50) NOT NULL,\\
+			\hspace*{4mm}PRIMARY KEY(pid, pharmaco)\\
+		);
+		\item CREATE TABLE employee (\\
+			\hspace*{4mm}pid int references person(pid),\\
+			\hspace*{4mm}salary int NOT NULL,\\
+			\hspace*{4mm}duty\_timings varchar(20) NOT NULL\\
+		);
+		\item CREATE TABLE txn\_on (\\
+			\hspace*{4mm}name varchar(60) NOT NULL,\\
+			\hspace*{4mm}buy\_timestamp timestamp NOT NULL,\\
+			\hspace*{4mm}chem\_amount varchar(10) NOT NULL,\\
+			\hspace*{4mm}expiry\_date date NOT NULL,\\
+			\hspace*{4mm}cp int NOT NULL,\\
+			\hspace*{4mm}id int NOT NULL,\\
+			\hspace*{4mm}qty\_buy\_sell int NOT NULL,\\
+			\hspace*{4mm}PRIMARY KEY(name, buy\_timestamp, chem\_amount, expiry\_date, cp, id),\\
+			\hspace*{4mm}FOREIGN KEY(id) REFERENCES transaction(id)\\
+		);
+		\item CREATE TABLE txn\_person (\\
+			\hspace*{4mm}id int NOT NULL,\\
+			\hspace*{4mm}pid\_person int NOT NULL,\\
+			\hspace*{4mm}pid\_employee int NOT NULL,\\
+			\hspace*{4mm}PRIMARY KEY(id, pid\_person, pid\_employee)\\
+		);
+	\end{itemize}
+
+\end{document}
