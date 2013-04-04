@@ -22,7 +22,7 @@ CREATE TABLE name_compound (
 );
 
 CREATE TABLE transaction (
-	id int PRIMARY KEY,
+	id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	txn_timestamp timestamp NOT NULL,
 	buy_sell char(1) NOT NULL,
 	notes text
@@ -73,5 +73,6 @@ CREATE TABLE txn_person (
 	id int NOT NULL,
 	pid_person int NOT NULL,
 	pid_employee int NOT NULL,
-	PRIMARY KEY(id, pid_person, pid_employee)
+	PRIMARY KEY(id, pid_person, pid_employee),
+	FOREIGN KEY(id) REFERENCES transaction(id)
 );

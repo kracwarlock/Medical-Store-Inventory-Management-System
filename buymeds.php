@@ -48,7 +48,7 @@
 
 		echo "***************RECORDS UPDATED SUCCESSFULLY**************<br /><br />";
 		echo "Returning back in 5 seconds..............";
-		//header("refresh:5;url=med_store_reception.php");
+		header("refresh:5;url=med_store_reception.php");
 
 		if($exists == "N")
 		{
@@ -101,6 +101,7 @@
 			}
 			else
 			{
+				$query = mysql_fetch_array($query);
 				$foundid = $query['pid'];
 				//insert into supplier_pharmaco
 				$insert = "INSERT INTO supplier_pharmaco (pid,pharmaco) VALUES ('".$foundid."','".$ph."')";
@@ -111,8 +112,19 @@
 			$query = mysql_query($insert);
 			$txnid = mysql_insert_id();
 			//insert into txn_on
-			
+			$insert = "INSERT INTO txn_on (name,buy_timestamp,expiry_date,chem_amount,cp,id,qty_buy_sell) VALUES ('".$medname."','".date('Y-m-d H:i:s',$ts)."','".$expdate."','".$chemamt."','".$cp."','".$txnid."','".$qty."')";
+			$query = mysql_query($insert);
 			//insert into txn_person
+			$pidp = -1;
+			if($foundid != -1) $pidp = $foundid;
+			else $pidp = $tempid;
+			$check = "SELECT * FROM person WHERE name='receptionist'";
+			$query = mysql_query($check);
+			$query = mysql_fetch_array($query);
+			$pidrecp = $query['pid'];
+			$insert = "INSERT INTO txn_person (id,pid_person,pid_employee) VALUES ('".$txnid."','".$pidp."','".$pidrecp."')";
+			$query = mysql_query($insert);
+
 			echo "<br /><br />Debug:".mysql_error();
 		}
 	}
