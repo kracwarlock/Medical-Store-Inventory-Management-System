@@ -23,32 +23,98 @@
 		$sem = $_POST['sem'];
 		$stel = $_POST['stel'];
 
-		echo "UPDATING RECORDS.............\n\n";
+		echo "UPDATING RECORDS.............<br /><br />";
 
-		echo "Medicine Name -	".$medname;
-		echo "Expiry Date -	".$expdate;
-		echo "Chemical Amount -	".$chemamt;
-		echo "Quantity -	".$qty;
-		echo "Cost Price -	".$cp;
-		echo "Selling Price -	".$sp;
-		echo "Major Compound -	".$c1;
-		echo "Minor Compound1 -	".$c2;
-		echo "Minor Compound2 -	".$c3;
-		echo "Pharma Co. -	".$ph;
-		echo "Notes -		".$notes;
-		echo "Existing Supp -	".$ex;
-		echo "Supp ID -		";
-		echo "Supp Name -	".$sname;
-		echo "Supp Addr -	".$saddr;
-		echo "Supp Email -	".$sem;
-		echo "Supp Tel -	".$stel;
+		echo "Medicine Name -	".$medname."<br />";
+		echo "Expiry Date -	".$expdate."<br />";
+		echo "Chemical Amount -	".$chemamt."<br />";
+		echo "Quantity -	".$qty."<br />";
+		echo "Cost Price -	".$cp."<br />";
+		echo "Selling Price -	".$sp."<br />";
+		echo "Major Compound -	".$c1."<br />";
+		echo "Minor Compound1 -	".$c2."<br />";
+		echo "Minor Compound2 -	".$c3."<br />";
+		echo "Pharma Co. -	".$ph."<br />";
+		echo "Notes -		".$notes."<br />";
+		echo "Existing Supp -	".$exists."<br />";
+		echo "Supp ID -		"."<br />";
 
-		echo "***************RECORDS UPDATED SUCCESSFULLY************";
-		header("Location: med_store_reception.php");
+// compute this ID
 
-/*		$getCreds = mysql_query("SELECT role FROM ".$dbtable." WHERE username='".$username."' AND password='".$password."'");
-		$gotCreds = mysql_fetch_array($getCreds);
-*/
+		echo "Supp Name -	".$sname."<br />";
+		echo "Supp Addr -	".$saddr."<br />";
+		echo "Supp Email -	".$sem."<br />";
+		echo "Supp Tel -	".$stel."<br /><br />";
+
+		echo "***************RECORDS UPDATED SUCCESSFULLY**************<br /><br />";
+		echo "Returning back in 5 seconds..............";
+		//header("refresh:5;url=med_store_reception.php");
+
+		if($exists == "N")
+		{
+			$date = new DateTime();
+			$ts = $date->getTimestamp();
+			//insert into medicine
+			$insert = "INSERT INTO medicine (name,buy_timestamp,expiry_date,chem_amount,qty,cp,sp) VALUES ('".$medname."','".date('Y-m-d H:i:s',$ts)."','".$expdate."','".$chemamt."','".$qty."','".$cp."','".$sp."')";
+			$query = mysql_query($insert);
+			//insert into name_pharma
+			$insert = "INSERT INTO name_pharma (name,pharmaco) VALUES ('".$medname."','".$ph."')";
+			$query = mysql_query($insert);
+			//insert into name_compound
+			$insert = "INSERT INTO name_compound (name,compound) VALUES ('".$medname."','".$c1."')";
+			$query = mysql_query($insert);
+			if($c2 !== '')
+			{
+				$insert = "INSERT INTO name_compound (name,compound) VALUES ('".$medname."','".$c2."')";
+				$query = mysql_query($insert);
+			}
+			if($c3 !== '')
+			{
+				$insert = "INSERT INTO name_compound (name,compound) VALUES ('".$medname."','".$c3."')";
+				$query = mysql_query($insert);
+			}
+			//insert into person if not exists
+			$check = "SELECT * FROM person WHERE name='".$sname."' AND address='".$saddr."'";
+			$query = mysql_query($check);
+			$tempid = -1;
+			$foundid= -1;
+			if(mysql_num_rows($query)==0)
+			{
+				$insert = "INSERT INTO person (name,address) VALUES ('".$sname."','".$saddr."')";
+				$query = mysql_query($insert);
+				$tempid = mysql_insert_id();
+				//insert into person_email
+				if($sem !== '')
+				{
+					$insert = "INSERT INTO person_email (pid,email) VALUES ('".$tempid."','".$sem."')";
+					$query = mysql_query($insert);
+				}
+				//insert into person_tel_no
+				if($stel !== '')
+				{
+					$insert = "INSERT INTO person_tel_no (pid,tel_no) VALUES ('".$tempid."','".$stel."')";
+					$query = mysql_query($insert);
+				}
+				//insert into supplier_pharmaco
+				$insert = "INSERT INTO supplier_pharmaco (pid,pharmaco) VALUES ('".$tempid."','".$ph."')";
+				$query = mysql_query($insert);
+			}
+			else
+			{
+				$foundid = $query['pid'];
+				//insert into supplier_pharmaco
+				$insert = "INSERT INTO supplier_pharmaco (pid,pharmaco) VALUES ('".$foundid."','".$ph."')";
+				$query = mysql_query($insert);
+			}
+			//insert into transaction
+			$insert = "INSERT INTO transaction (txn_timestamp,buy_sell,notes) VALUES ('".date('Y-m-d H:i:s',$ts)."','B','".$notes."')";
+			$query = mysql_query($insert);
+			$txnid = mysql_insert_id();
+			//insert into txn_on
+			
+			//insert into txn_person
+			echo "<br /><br />Debug:".mysql_error();
+		}
 	}
 	else
 	{

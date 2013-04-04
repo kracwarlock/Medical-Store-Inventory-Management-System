@@ -77,17 +77,17 @@
 	<br />
 
 	<label for="sname" class="desc">Supplier Name:</label>
-	<input type="text" name="sname" />
+	<input type="text" name="sname" required/>
 
 	<label for="saddr" class="desc">Supplier Address:</label>
-	<input type="text" name="saddr" />
+	<input type="text" name="saddr" required/>
 	<br />
 
 	<label for="sem" class="desc">Supplier Email:</label>
-	<input type="text" name="sem" />
+	<input type="email" name="sem" required/>
 
-	<label for="stel" class="desc">Supplier Tel. No.:</label>
-	<input type="text" name="stel" />
+	<label for="stel" class="desc">Supplier Tel. No.(only numbers):</label>
+	<input type="text" name="stel" pattern="[0-9]+" required/>
 	<br />
 
 	<input type="submit" name="submit" value="Submit" class="submit" id="buysub"/>
