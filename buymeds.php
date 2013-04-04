@@ -37,10 +37,7 @@
 		echo "Pharma Co. -	".$ph."<br />";
 		echo "Notes -		".$notes."<br />";
 		echo "Existing Supp -	".$exists."<br />";
-		echo "Supp ID -		"."<br />";
-
-// compute this ID
-
+		//echo "Supp ID -		"."<br />";//calculate later
 		echo "Supp Name -	".$sname."<br />";
 		echo "Supp Addr -	".$saddr."<br />";
 		echo "Supp Email -	".$sem."<br />";
@@ -50,7 +47,7 @@
 		echo "Returning back in 5 seconds..............";
 		header("refresh:5;url=med_store_reception.php");
 
-		if($exists == "N")
+		if($exists == "N" || $exists == "Y")//merged cases because anyways the user can't be trusted to provide correct value
 		{
 			$date = new DateTime();
 			$ts = $date->getTimestamp();
