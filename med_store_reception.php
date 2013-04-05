@@ -101,10 +101,10 @@
 	<label for="medno" class="desc">Select number of different medicines being sold:</label>
 	<select name="medno">
 		<option value="1">1</option>
-		<option value="1">2</option>
-		<option value="1">3</option>
-		<option value="1">4</option>
-		<option value="1">5</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
 	</select>
 	<br />
 
@@ -153,7 +153,7 @@
 			while ($row = mysql_fetch_array($getMeds))
 			{
 		?>
-		<option value="<?php echo $row['name'].','.$row['buy_timestamp'].','.$row['expiry_date'].','.$row['chem_amount'].','.$row['cp']; ?>"><?php echo $row['name'].','.$row['chem_amount'].','.$row['expiry_date'].','.$row['cp']; ?></option>
+		<option value="<?php echo $row['name'].','.$row['buy_timestamp'].','.$row['expiry_date'].','.$row['chem_amount'].','.$row['cp'].','.$row['sp']; ?>"><?php echo $row['name'].','.$row['chem_amount'].','.$row['expiry_date'].','.$row['sp']; ?></option>
 		<?php
 			}
 		?>
@@ -171,7 +171,7 @@
 			while ($row = mysql_fetch_array($getMeds))
 			{
 		?>
-		<option value="<?php echo $row['name'].','.$row['buy_timestamp'].','.$row['expiry_date'].','.$row['chem_amount'].','.$row['cp']; ?>"><?php echo $row['name'].','.$row['chem_amount'].','.$row['expiry_date'].','.$row['cp']; ?></option>
+		<option value="<?php echo $row['name'].','.$row['buy_timestamp'].','.$row['expiry_date'].','.$row['chem_amount'].','.$row['cp'].','.$row['sp']; ?>"><?php echo $row['name'].','.$row['chem_amount'].','.$row['expiry_date'].','.$row['sp']; ?></option>
 		<?php
 			}
 		?>
@@ -189,7 +189,7 @@
 			while ($row = mysql_fetch_array($getMeds))
 			{
 		?>
-		<option value="<?php echo $row['name'].','.$row['buy_timestamp'].','.$row['expiry_date'].','.$row['chem_amount'].','.$row['cp']; ?>"><?php echo $row['name'].','.$row['chem_amount'].','.$row['expiry_date'].','.$row['cp']; ?></option>
+		<option value="<?php echo $row['name'].','.$row['buy_timestamp'].','.$row['expiry_date'].','.$row['chem_amount'].','.$row['cp'].','.$row['sp']; ?>"><?php echo $row['name'].','.$row['chem_amount'].','.$row['expiry_date'].','.$row['sp']; ?></option>
 		<?php
 			}
 		?>
@@ -207,7 +207,7 @@
 			while ($row = mysql_fetch_array($getMeds))
 			{
 		?>
-		<option value="<?php echo $row['name'].','.$row['buy_timestamp'].','.$row['expiry_date'].','.$row['chem_amount'].','.$row['cp']; ?>"><?php echo $row['name'].','.$row['chem_amount'].','.$row['expiry_date'].','.$row['cp']; ?></option>
+		<option value="<?php echo $row['name'].','.$row['buy_timestamp'].','.$row['expiry_date'].','.$row['chem_amount'].','.$row['cp'].','.$row['sp']; ?>"><?php echo $row['name'].','.$row['chem_amount'].','.$row['expiry_date'].','.$row['sp']; ?></option>
 		<?php
 			}
 		?>
@@ -225,7 +225,7 @@
 			while ($row = mysql_fetch_array($getMeds))
 			{
 		?>
-		<option value="<?php echo $row['name'].','.$row['buy_timestamp'].','.$row['expiry_date'].','.$row['chem_amount'].','.$row['cp']; ?>"><?php echo $row['name'].','.$row['chem_amount'].','.$row['expiry_date'].','.$row['cp']; ?></option>
+		<option value="<?php echo $row['name'].','.$row['buy_timestamp'].','.$row['expiry_date'].','.$row['chem_amount'].','.$row['cp'].','.$row['sp']; ?>"><?php echo $row['name'].','.$row['chem_amount'].','.$row['expiry_date'].','.$row['sp']; ?></option>
 		<?php
 			}
 		?>
@@ -254,6 +254,11 @@
 	<input type="text" name="ctel" pattern="[0-9]+" required/>
 	<br />
 
+	<label for="snotes">Notes:</label>
+	<input type="text" name="snotes" />
+	<br />
+
+	<!-- check that none of the options are same -->
 	<input type="submit" name="submit" value="Submit" class="submit" id="sellsub"/>
 </form>
 
