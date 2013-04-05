@@ -93,18 +93,168 @@
 	<input type="submit" name="submit" value="Submit" class="submit" id="buysub"/>
 </form>
 
-<form id="a1" onsubmit="return submitForm();">
+<form id="sellmeds"  method="POST" action="sellmeds.php">
 
 	<label for="question" style="font-size:25px;">Medicine Sale:</label>
 	<br /><br />
 
-	<label for="p1">Predicate:</label>
-	<input type="text" name="p1" />
-	<label for="d1" class="desc">Description:</label>
-	<input type="text" name="d1" />
+	<label for="medno" class="desc">Select number of different medicines being sold:</label>
+	<select name="medno">
+		<option value="1">1</option>
+		<option value="1">2</option>
+		<option value="1">3</option>
+		<option value="1">4</option>
+		<option value="1">5</option>
+	</select>
 	<br />
 
-	<input type="submit" name="submit" value="Submit" class="submit" id="hmm"/>
+	<script	type="text/javascript">
+		function getQty(str,idx)
+		{
+			var xmlhttp;
+			if (window.XMLHttpRequest)
+			{// code for IE7+, Firefox, Chrome, Opera, Safari
+				xmlhttp=new XMLHttpRequest();
+			}
+			else
+			{// code for IE6, IE5
+				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+			}
+			xmlhttp.onreadystatechange=function()
+			{
+				if (xmlhttp.readyState==4 && xmlhttp.status==200)
+				{
+					var select = document.getElementById("noof"+idx);
+					select.options.length=0;
+					var retqty = xmlhttp.responseText;
+					var i=0;
+					for(i=1;i<=retqty;i++)
+					{
+						var option = document.createElement("option");
+						option.text = i;
+						option.value = i;
+						var select = document.getElementById("noof"+idx);
+						select.appendChild(option);
+					}
+				}
+			}
+			xmlhttp.open("GET","getMedsDetails.php?q="+str,true);
+			xmlhttp.send();
+		}
+	</script>
+
+	<?php
+		$getMeds = mysql_query('SELECT * FROM medicine');
+	?>
+
+	<label for="m1" class="desc">Select Medicine 1:</label>
+	<select name="m1" onmouseup="getQty(this.options[this.selectedIndex].value,1);" onchange="getQty(this.options[this.selectedIndex].value,1);">
+		<?php
+			while ($row = mysql_fetch_array($getMeds))
+			{
+		?>
+		<option value="<?php echo $row['name'].','.$row['buy_timestamp'].','.$row['expiry_date'].','.$row['chem_amount'].','.$row['cp']; ?>"><?php echo $row['name'].','.$row['chem_amount'].','.$row['expiry_date'].','.$row['cp']; ?></option>
+		<?php
+			}
+		?>
+	</select>
+	<select id="noof1" name="noof1"></select>
+	<br />
+
+	<?php
+		$getMeds = mysql_query('SELECT * FROM medicine');
+	?>
+
+	<label for="m2" class="desc">Select Medicine 2:</label>
+	<select name="m2" onmouseup="getQty(this.options[this.selectedIndex].value,2);" onchange="getQty(this.options[this.selectedIndex].value,2);">
+		<?php
+			while ($row = mysql_fetch_array($getMeds))
+			{
+		?>
+		<option value="<?php echo $row['name'].','.$row['buy_timestamp'].','.$row['expiry_date'].','.$row['chem_amount'].','.$row['cp']; ?>"><?php echo $row['name'].','.$row['chem_amount'].','.$row['expiry_date'].','.$row['cp']; ?></option>
+		<?php
+			}
+		?>
+	</select>
+	<select id="noof2" name="noof2"></select>
+	<br />
+
+	<?php
+		$getMeds = mysql_query('SELECT * FROM medicine');
+	?>
+
+	<label for="m3" class="desc">Select Medicine 3:</label>
+	<select name="m3" onmouseup="getQty(this.options[this.selectedIndex].value,3);" onchange="getQty(this.options[this.selectedIndex].value,3);">
+		<?php
+			while ($row = mysql_fetch_array($getMeds))
+			{
+		?>
+		<option value="<?php echo $row['name'].','.$row['buy_timestamp'].','.$row['expiry_date'].','.$row['chem_amount'].','.$row['cp']; ?>"><?php echo $row['name'].','.$row['chem_amount'].','.$row['expiry_date'].','.$row['cp']; ?></option>
+		<?php
+			}
+		?>
+	</select>
+	<select id="noof3" name="noof3"></select>
+	<br />
+
+	<?php
+		$getMeds = mysql_query('SELECT * FROM medicine');
+	?>
+
+	<label for="m4" class="desc">Select Medicine 4:</label>
+	<select name="m4" onmouseup="getQty(this.options[this.selectedIndex].value,4);" onchange="getQty(this.options[this.selectedIndex].value,4);">
+		<?php
+			while ($row = mysql_fetch_array($getMeds))
+			{
+		?>
+		<option value="<?php echo $row['name'].','.$row['buy_timestamp'].','.$row['expiry_date'].','.$row['chem_amount'].','.$row['cp']; ?>"><?php echo $row['name'].','.$row['chem_amount'].','.$row['expiry_date'].','.$row['cp']; ?></option>
+		<?php
+			}
+		?>
+	</select>
+	<select id="noof4" name="noof4"></select>
+	<br />
+
+	<?php
+		$getMeds = mysql_query('SELECT * FROM medicine');
+	?>
+
+	<label for="m5" class="desc">Select Medicine 5:</label>
+	<select name="m5" onmouseup="getQty(this.options[this.selectedIndex].value,5);" onchange="getQty(this.options[this.selectedIndex].value,5);">
+		<?php
+			while ($row = mysql_fetch_array($getMeds))
+			{
+		?>
+		<option value="<?php echo $row['name'].','.$row['buy_timestamp'].','.$row['expiry_date'].','.$row['chem_amount'].','.$row['cp']; ?>"><?php echo $row['name'].','.$row['chem_amount'].','.$row['expiry_date'].','.$row['cp']; ?></option>
+		<?php
+			}
+		?>
+	</select>
+	<select id="noof5" name="noof5"></select>
+	<br />
+
+	<label for="cex" class="desc">Existing Customer:</label>
+	<select name="cex">
+		<option value="N">No</option>
+		<option value="Y">Yes</option>
+	</select>
+	<br />
+
+	<label for="cname" class="desc">Customer Name:</label>
+	<input type="text" name="cname" required/>
+
+	<label for="caddr" class="desc">Customer Address:</label>
+	<input type="text" name="caddr" required/>
+	<br />
+
+	<label for="cem" class="desc">Customer Email:</label>
+	<input type="email" name="cem" required/>
+
+	<label for="ctel" class="desc">Customer Tel. No.(only numbers):</label>
+	<input type="text" name="ctel" pattern="[0-9]+" required/>
+	<br />
+
+	<input type="submit" name="submit" value="Submit" class="submit" id="sellsub"/>
 </form>
 
 	</body>
