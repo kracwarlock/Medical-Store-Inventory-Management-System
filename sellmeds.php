@@ -101,7 +101,7 @@
 			//insert into txn_on for each medicine
 			for($i=1;$i<=$medno;$i++)
 			{
-				$insert = "INSERT INTO txn_on (name,buy_timestamp,expiry_date,chem_amount,cp,id,qty_buy_sell) VALUES ('".${'m'.$i.'name'}."','".date('Y-m-d H:i:s',$ts)."','".${'m'.$i.'expd'}."','".${'m'.$i.'chemamt'}."','".${'m'.$i.'cp'}."','".$txnid."','".${'noof'.$i}."')";
+				$insert = "INSERT INTO txn_on (name,buy_timestamp,expiry_date,chem_amount,cp,id,qty_buy_sell) VALUES ('".${'m'.$i.'name'}."','".${'m'.$i.'ts'}."','".${'m'.$i.'expd'}."','".${'m'.$i.'chemamt'}."','".${'m'.$i.'cp'}."','".$txnid."','".${'noof'.$i}."')";
 				$query = mysql_query($insert);
 			}
 			//insert into txn_person
@@ -125,7 +125,7 @@
 				$qtythis = $query['qty'];
 				$qtyf = $qtythis-${'noof'.$i};
 
-				$update = "UPDATE medicine SET qty=".$qtyf." WHERE name='".${'m'.$i.'name'}."' AND buy_timestamp='".${'m'.$i.'ts'}."' AND expiry_date='".${'m'.$i.'expd'}."' AND chem_amount='".${'m'.$i.'chemamt'}."' AND cp=".${'m'.$i.'cp'}."";
+				$update = "UPDATE medicine SET qty=".$qtyf.", buy_timestamp=buy_timestamp WHERE name='".${'m'.$i.'name'}."' AND buy_timestamp='".${'m'.$i.'ts'}."' AND expiry_date='".${'m'.$i.'expd'}."' AND chem_amount='".${'m'.$i.'chemamt'}."' AND cp=".${'m'.$i.'cp'}."";
 				$query = mysql_query($update);
 			}
 			//echo "<br />Step 3 Done<br />";
