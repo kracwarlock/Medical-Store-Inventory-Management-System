@@ -40,6 +40,16 @@
 				});
 				return false;
 			}
+
+			function profitlosscalc()
+			{
+				$.ajax({type:'POST', url: 'pl.php', data:$('#profitloss').serialize(), success: function(response)
+				{
+					$('#profitloss').find('#pldisp').html(response);
+				}
+				});
+				return false;
+			}
 		</script>
 		<title>Medical Store Management</title>
 	</head>
@@ -83,6 +93,82 @@
 			<br /><br />
 
 			<div id="billsdisp" class="outputsqlq" style="border:2px solid black;"></div>
+		</form>
+
+		<form id="profitloss" style="height:;"  onsubmit="return profitlosscalc();">
+			<label for="pl" style="font-size:25px;">Profit/Loss:</label>
+			<br />
+
+			<label for="month1_year1">Starting Date, Month and Year:</label>
+			<select name="date1">
+				<?php
+					for ($i=1;$i<=31;$i++)
+					{
+				?>
+				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+				<?php
+					}
+				?>
+			</select>
+			<select name="month1">
+				<?php
+					for ($i=1;$i<=12;$i++)
+					{
+				?>
+				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+				<?php
+					}
+				?>
+			</select>
+			<select name="year1">
+				<?php
+					for ($i=2010;$i<=2099;$i++)
+					{
+				?>
+				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+				<?php
+					}
+				?>
+			</select>
+			<br />
+
+			<label for="month2_year2">Ending Date, Month and Year:</label>
+			<select name="date2">
+				<?php
+					for ($i=1;$i<=31;$i++)
+					{
+				?>
+				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+				<?php
+					}
+				?>
+			</select>
+			<select name="month2">
+				<?php
+					for ($i=1;$i<=12;$i++)
+					{
+				?>
+				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+				<?php
+					}
+				?>
+			</select>
+			<select name="year2">
+				<?php
+					for ($i=2010;$i<=2099;$i++)
+					{
+				?>
+				<option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+				<?php
+					}
+				?>
+			</select>
+			<br />
+
+			<input type="submit" name="submit" value="Submit" class="submit" id="plsub"/>
+			<br /><br />
+
+			<div id="pldisp" class="outputsqlq" style="border:2px solid black;"></div>
 		</form>
 	</body>
 </html>
