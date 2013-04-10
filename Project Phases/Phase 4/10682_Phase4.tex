@@ -1,0 +1,34 @@
+\documentclass[a4paper]{article}
+\usepackage[pdftex]{graphicx} 
+\usepackage{enumitem}
+\setdescription{leftmargin=\parindent,labelindent=20mm}
+
+\title{{\bf Medical Store Management System}\\Phase-4}
+\author{Shikhar Sharma\\10682\\shikhars@iitk.ac.in\\\\CS315 Course Project\\IIT Kanpur}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+\section{Implementation Details}
+	The project has been implemented using PHP and MySQL. The front end starts with a login screen. Thee roles have been created as described in the previous reports. The details of each of these are given below.
+	\subsection{Receptionist}
+		The receptionist is allowed to carry out purchase and sell transactions. For purchasing, the front-end requires the receptionist to fill out details regarding the medicine and supplier. The transacting receptionist's id is also recorded into the database. The fields have been marked as required and some even have a pattern matching mechanism implemented using HTML5 form validation instead of using JavaScript. For selling, the receptionist can select a maximum of five medicines per bill using a drop down list. This maximum limit was just set by me and can easily be changed to meet the store's needs.
+	\subsection{Owner}
+		The owner's front-end first displays the contents of some of the database tables which are relevant to the owner. He can get the store inventory information using these tables. He can see detailed information about an order/sale by viewing its bill. Also, he can view the store's profit between two selected dates.
+	\subsection{Administrator}
+		The administrator's front end allows him to directly run queries on the database.
+
+\section{Changes To Previous Phases' Reports}
+	\subsection{Phase 1}
+		Logging has not been implemented in the project. The functions of the roles have been changed suitably in some places so that the system remains tamper-proof. This has been done assuming that the administrator knows all the passwords and that the owner also knows all the passwords with perhaps the exception of the administrator's.
+	\subsection{Phase 2}
+		In the table Medicine, 'buy\_timestamp' and 'expiry\_date' have also been added to the primary key.
+	\subsection{Phase 3}
+		No changes have been made to Phase 3.
+		
+\section{Previous Reports}
+	The previous reports have also been kept in this folder for reference.
+\end{document}
